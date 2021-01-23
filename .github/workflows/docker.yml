@@ -23,8 +23,6 @@ jobs:
       - name: Set up Docker Buildx
         id: buildx
         uses: docker/setup-buildx-action@v1
-      - name: Available platforms
-        run: echo ${{ steps.buildx.outputs.platforms }}
       - name: Build
         run: docker buildx build --platform linux/arm/v7,linux/amd64 .
       - name: Build and push

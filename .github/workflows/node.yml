@@ -35,5 +35,5 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       - run: yarn
-      - run: yarn build
+      - run: yarn build && rm -vrf dist
       - run: yarn test
