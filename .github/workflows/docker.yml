@@ -34,4 +34,4 @@ jobs:
           file: ./Dockerfile
           platforms: linux/amd64,linux/arm/v7
           push: true
-          tags: eriizu/pwa-course-frontend:latest
+          tags: eriizu/pwa-course-backend:latest
