@@ -1,3 +1,6 @@
-let tata: string = "bonjour";
+import { start as startApp } from "./api";
+import { start as startDb } from "./db";
 
-console.log(tata);
+startDb().then(() => {
+  startApp();
+});
