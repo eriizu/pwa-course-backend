@@ -1,4 +1,5 @@
 import express, { Request, Response } from "express";
+import { Push } from "../../entities/Push";
 
 export const router = express.Router({
   strict: true,
@@ -14,7 +15,7 @@ webpush.setVapidDetails(
 
 // router.post("/", pushController.create);
 
-router.get("/", (req, res) => {
+router.post("/", async (req, res) => {
   let subscription: Parameters<typeof webpush.sendNotification>[0] = req.body;
   let payload = {
     notification: {
@@ -26,8 +27,18 @@ router.get("/", (req, res) => {
     },
   };
 
-  webpush.sendNotification(subscription, JSON.stringify(payload), {});
-  res.sendStatus(201);
+  let pushEntry = new Push(JSON.stringify(subscription));
+
+  try {
+    await pushEntry.save();
+    await webpush.sendNotification(subscription, JSON.stringify(payload), {});
+    res.sendStatus(201);
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500);
+  }
+
+  return;
 });
 
 // router.patch("/", pushController.update);
