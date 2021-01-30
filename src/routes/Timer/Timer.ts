@@ -1,14 +1,21 @@
 import express, { Request, Response } from "express";
-import { timerController } from "../../controllers";
 
 export const router = express.Router({
   strict: true,
 });
 
-router.post("/", timerController.create);
+router.post("/", (req, res) => {
+  res.sendStatus(404);
+});
 
-router.get("/", timerController.read);
+router.get("/", (req, res) => {
+  res.send({});
+});
 
-router.patch("/", timerController.update);
+router.put("/", (req, res) => {
+  res.sendStatus(404);
+});
 
-router.delete("/", timerController.delete);
+router.delete("/", (req, res) => {
+  res.sendStatus(404);
+});
