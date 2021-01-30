@@ -5,7 +5,7 @@ import { Push } from "../entities/Push";
 
 async function start() {
   let conn = await createConnection({
-    type: "sqlite",
+    type: "better-sqlite3",
     database: "db.sqlite",
     entities: [Push],
     synchronize: true,

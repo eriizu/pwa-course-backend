@@ -6,9 +6,9 @@
   "author": "Élise Philippe <elise@eiss.fr>",
   "license": "MIT",
   "dependencies": {
+    "better-sqlite3": "^7.1.2",
     "express": "^4.17.1",
     "reflect-metadata": "^0.1.13",
-    "sqlite3": "^5.0.1",
     "typeorm": "^0.2.30",
     "web-push": "^3.4.4"
   },
