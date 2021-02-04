@@ -2,6 +2,15 @@
 version: "3.1"
 
 services:
+  backend:
+    image: eriizu/pwa-course-frontend:latest
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.pwa.rule=Host(`pwa-back.eriizu.fr`)"
+      - "traefik.http.routers.pwa.entrypoints=websecure"
+      - "traefik.http.routers.pwa.tls.certresolver=le"
+    environment:
+      PORT: 80
   db:
     image: postgres:alpine
     restart: always
