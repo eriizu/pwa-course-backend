@@ -1,6 +1,10 @@
 import "reflect-metadata";
 import { createConnection } from "typeorm";
-import { POSTGRES_PASSWORD, POSTGRES_USER } from "../config/constants";
+import {
+  POSTGRES_PASSWORD,
+  POSTGRES_USER,
+  POSTGRES_HOST,
+} from "../config/constants";
 
 import { Push } from "../entities/Push";
 
