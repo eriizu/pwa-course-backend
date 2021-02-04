@@ -15,6 +15,7 @@ async function start() {
     type: "postgres",
     username: POSTGRES_PASSWORD,
     password: POSTGRES_USER,
+    host: POSTGRES_HOST,
     entities: [Push],
     synchronize: true,
   });
