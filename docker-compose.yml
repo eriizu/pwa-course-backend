@@ -11,6 +11,7 @@ services:
       - "traefik.http.routers.pwa.tls.certresolver=le"
     environment:
       PORT: 80
+      BACK_POSTGRES_HOST: "db"
     links:
       - "db"
   db:

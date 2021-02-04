@@ -28,4 +28,4 @@ ENV PORT=80
 
 EXPOSE 80
 
-CMD [ "node", "/app/dist/api.js" ]
+CMD [ "node", "/app/dist/index.js" ]
