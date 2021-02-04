@@ -1,0 +1,43 @@
+FROM node:alpine AS build-deps
+
+WORKDIR /build
+
+COPY package.json yarn.lock ./
+
+RUN apk add --update --no-cache python3 build-base && yarn
+
+
+
+FROM node:alpine AS build
+
+WORKDIR /build
+
+COPY --from=build-deps /build/node_modules ./node_modules
+
+COPY . .
+
+RUN yarn build
+
+
+
+FROM node:alpine AS prod-deps
+
+WORKDIR /build
+
+COPY package.json yarn.lock ./
+
+RUN apk add --update --no-cache python3 build-base && yarn --prod
+
+
+
+FROM node:alpine AS prod
+
+WORKDIR /app/dist
+
+COPY --from=build /build/dist ./
+
+WORKDIR /app
+
+COPY --from=prod-deps /build/node_modules ./node_modules
+
+CMD [ "node", "/app/dist/api.js" ]

@@ -1,4 +1,5 @@
-from node:alpine as build
+
+FROM node:alpine AS build
 
 WORKDIR /build
 
@@ -10,16 +11,17 @@ COPY . .
 
 RUN yarn build
 
-FROM node:alpine
+
+FROM node:alpine AS prod
+
+WORKDIR /app
+
+COPY package.json yarn.lock ./
+
+RUN yarn --prod
 
 WORKDIR /app/dist
 
 COPY --from=build /build/dist ./
-
-WORKDIR /app
-
-COPY . .
-
-RUN yarn --prod
 
 CMD [ "node", "/app/dist/api.js" ]
