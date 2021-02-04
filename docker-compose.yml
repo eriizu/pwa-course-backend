@@ -6,9 +6,9 @@ services:
     image: eriizu/pwa-course-backend:latest
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.pwa.rule=Host(`pwa-back.eriizu.fr`)"
-      - "traefik.http.routers.pwa.entrypoints=websecure"
-      - "traefik.http.routers.pwa.tls.certresolver=le"
+      - "traefik.http.routers.pwaback.rule=Host(`pwa-back.eriizu.fr`)"
+      - "traefik.http.routers.pwaback.entrypoints=websecure"
+      - "traefik.http.routers.pwaback.tls.certresolver=le"
     environment:
       PORT: 80
       BACK_POSTGRES_HOST: "db"
