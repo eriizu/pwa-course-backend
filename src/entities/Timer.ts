@@ -16,12 +16,6 @@ export class Interval {
 
 @Entity()
 export class Timer extends BaseEntity {
-  constructor(next: Date, interval?: Partial<Interval>) {
-    super();
-    this.repeats = new Interval(interval);
-    this.next = next;
-  }
-
   @PrimaryGeneratedColumn()
   id?: number;
 
@@ -30,4 +24,14 @@ export class Timer extends BaseEntity {
 
   @Column()
   next: Date;
+
+  constructor(next: Date, interval?: Partial<Interval>) {
+    super();
+    this.repeats = new Interval(interval);
+    this.next = next;
+  }
+
+  static async getNextOccurence() {
+    return this.findOne({ order: { next: "ASC" } });
+  }
 }
