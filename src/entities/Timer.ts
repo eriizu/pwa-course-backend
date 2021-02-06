@@ -1,4 +1,10 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import {
+  BaseEntity,
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  LessThanOrEqual,
+} from "typeorm";
 
 export class Interval {
   constructor(interval?: Partial<Interval>) {
@@ -33,5 +39,11 @@ export class Timer extends BaseEntity {
 
   static async getNextOccurence() {
     return this.findOne({ order: { next: "ASC" } });
+  }
+
+  static async findDue() {
+    return this.find({
+      where: { next: LessThanOrEqual(new Date().toISOString()) },
+    });
   }
 }
