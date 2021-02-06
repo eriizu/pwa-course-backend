@@ -7,7 +7,8 @@ export const router = express.Router({
 
 router.post("/", async (req, res) => {
   let body: Partial<Timer> = req.body;
-  if (body.next instanceof Date) {
+  if (body.next) body.next = new Date(body.next);
+  if (body?.next instanceof Date) {
     var interval: Partial<TimerInterval> = {};
     if (body?.repeats?.hours || body?.repeats?.months) {
       interval = body.repeats;
