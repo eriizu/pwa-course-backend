@@ -1,5 +1,4 @@
 import express, { Request, Response } from "express";
-import { PartialFields } from "../../PartialFields";
 import { Timer, Interval as TimerInterval } from "../../entities/Timer";
 
 export const router = express.Router({

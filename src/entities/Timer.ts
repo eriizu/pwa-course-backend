@@ -1,7 +1,5 @@
 import { BaseEntity, Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
-import { PartialFields } from "../PartialFields";
-
 export class Interval {
   constructor(interval?: Partial<Interval>) {
     this.months = 0;
