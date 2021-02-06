@@ -35,7 +35,6 @@ async function startTest(testname: string) {
     synchronize: true,
     dropSchema: true,
   });
-  console.log(conn);
   return conn;
   // return createConnection({
   //   type: "better-sqlite3",

@@ -11,7 +11,6 @@ var conn: Connection;
 
 beforeAll(async () => {
   conn = await startTest("timerTest");
-  console.log(conn);
   return;
 });
 
