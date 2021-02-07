@@ -8,13 +8,28 @@ webpush.setVapidDetails(
   "YMC6vjtkDKwgHnyvJKwAfHOMm8PLpK1MIit15HFli2A"
 );
 
+export interface PushPayload {
+  notification: {
+    title: string;
+    body: string;
+    data: {
+      url: string;
+    };
+  };
+}
+
+const DEFAULT_PAYLOAD: PushPayload = {
+  notification: {
+    title: "PWA: default notification",
+    body: "this is sent when the business code failed to provide contents for",
+    data: {
+      url: "https://e89.eiss.fr",
+    },
+  },
+};
+
 @Entity()
 export class Push extends BaseEntity {
-  constructor(resgistration: string) {
-    super();
-    this.resgistration = resgistration;
-  }
-
   @PrimaryGeneratedColumn()
   id?: number;
 
@@ -24,20 +39,15 @@ export class Push extends BaseEntity {
   @Column()
   resgistration: string;
 
-  async notify() {
+  constructor(resgistration: string) {
+    super();
+    this.resgistration = resgistration;
+  }
+
+  async notify(payload: PushPayload = DEFAULT_PAYLOAD) {
     const subscription: Parameters<
       typeof webpush.sendNotification
     >[0] = JSON.parse(this.resgistration);
-
-    const payload = {
-      notification: {
-        title: "Testing testing one two three",
-        body: "bonjoir",
-        data: {
-          url: "https://e89.eiss.fr",
-        },
-      },
-    };
 
     return await webpush.sendNotification(
       subscription,
@@ -45,7 +55,7 @@ export class Push extends BaseEntity {
     );
   }
 
-  static async notifyAll() {
+  static async notifyAll(payload: PushPayload = DEFAULT_PAYLOAD) {
     const registrations = await this.find({});
 
     for (let pushEntry of registrations) {

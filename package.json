@@ -6,6 +6,7 @@
   "author": "Élise Philippe <elise@eiss.fr>",
   "license": "MIT",
   "dependencies": {
+    "date-fns": "^2.17.0",
     "express": "^4.17.1",
     "moment": "^2.29.1",
     "pg": "^8.5.1",

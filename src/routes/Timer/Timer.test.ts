@@ -7,6 +7,7 @@ import { Connection } from "typeorm";
 import moment from "moment";
 import { Timer } from "../../entities/Timer";
 import { setupMiddleware } from "../../api";
+import { TimerSheduler } from "../../entities/TimerScheduler";
 
 let app = express();
 setupMiddleware(app);
@@ -21,6 +22,7 @@ beforeAll(async () => {
 
 afterAll(async () => {
   if (conn) await Promise.all([conn.close()]);
+  TimerSheduler.disable();
 });
 
 it("should get timers", async () => {

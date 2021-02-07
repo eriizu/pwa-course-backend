@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express";
 import { Timer, Interval as TimerInterval } from "../../entities/Timer";
+import { TimerSheduler } from "../../entities/TimerScheduler";
 
 export const router = express.Router({
   strict: true,
@@ -17,6 +18,7 @@ router.post("/", async (req, res) => {
     let timer = new Timer(body.next, interval);
 
     await timer.save();
+    TimerSheduler.enable();
     res.status(201).send(timer);
   } else {
     res.sendStatus(400);

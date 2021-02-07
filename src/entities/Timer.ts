@@ -1,3 +1,4 @@
+import moment from "moment";
 import {
   BaseEntity,
   Entity,
@@ -5,6 +6,12 @@ import {
   Column,
   LessThanOrEqual,
 } from "typeorm";
+import { format } from "date-fns";
+import {
+  MoreThanOrEqualDate,
+  LessThanOrEqualDate,
+  EDateType,
+} from "../DateCompare";
 
 export class Interval {
   constructor(interval?: Partial<Interval>) {
@@ -37,13 +44,47 @@ export class Timer extends BaseEntity {
     this.next = next;
   }
 
+  bump() {
+    let new_next = moment(this.next);
+    if (this.repeats.hours) new_next.add(this.repeats.hours, "hours");
+    if (this.repeats.months) new_next.add(this.repeats.months, "months");
+    this.next = new_next.toDate();
+  }
+
+  async bumpAndSave() {
+    const id = this.id;
+    if (this.repeats.hours || this.repeats.months) {
+      this.bump();
+      console.log(`bumping ${this.id}.`);
+      await this.save();
+    } else {
+      console.log(`removing ${this.id} as it isn't supposed to repeat.`);
+      await this.remove();
+    }
+    console.log(`complete with: ${id}.`);
+  }
+
   static async getNextOccurence() {
-    return this.findOne({ order: { next: "ASC" } });
+    return this.findOne({
+      order: { next: "ASC" },
+      where: { next: LessThanOrEqualDate(new Date(), EDateType.Datetime) },
+    });
+  }
+
+  private static nowToDBDate() {
+    return format(new Date(), "yyyy-MM-dd kk:mm:ss.SSS");
   }
 
   static async findDue() {
-    return this.find({
-      where: { next: LessThanOrEqual(new Date().toISOString()) },
-    });
+    try {
+      return await this.find({
+        where: { next: LessThanOrEqualDate(new Date(), EDateType.Datetime) },
+      });
+    } catch (err) {
+      console.warn(err);
+      return this.find({
+        where: { next: LessThanOrEqual(this.nowToDBDate()) },
+      });
+    }
   }
 }

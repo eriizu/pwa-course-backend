@@ -1,5 +1,6 @@
 import { startTest } from "../db";
 import { Timer } from "./Timer";
+import { TimerSheduler } from "./TimerScheduler";
 import { Connection } from "typeorm";
 
 var conn: Connection;
@@ -23,6 +24,7 @@ beforeAll(async () => {
 
 afterAll(async () => {
   if (conn) await Promise.all([conn.close()]);
+  TimerSheduler.disable();
 });
 
 it("should get the next occurence", async () => {
