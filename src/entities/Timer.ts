@@ -67,23 +67,23 @@ export class Timer extends BaseEntity {
   static async getNextOccurence() {
     return this.findOne({
       order: { next: "ASC" },
-      where: { next: LessThanOrEqualDate(new Date(), EDateType.Datetime) },
     });
   }
 
-  private static nowToDBDate() {
-    return format(new Date(), "yyyy-MM-dd kk:mm:ss.SSS");
-  }
+  // private static nowToDBDate() {
+  //   return format(new Date(), "yyyy-MM-dd kk:mm:ss.SSS");
+  // }
 
   static async findDue() {
     try {
       return await this.find({
-        where: { next: LessThanOrEqualDate(new Date(), EDateType.Datetime) },
+        where: { next: LessThanOrEqual(new Date()) },
       });
     } catch (err) {
-      console.warn(err);
+      // console.warn(err);
+      let search = new Date().toISOString().replace("T", " ").replace("Z", "");
       return this.find({
-        where: { next: LessThanOrEqual(this.nowToDBDate()) },
+        where: { next: LessThanOrEqual(search) },
       });
     }
   }

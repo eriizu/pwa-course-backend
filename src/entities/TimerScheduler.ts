@@ -37,7 +37,7 @@ export class TimerSheduler {
         },
       };
       Push.notifyAll().catch(console.warn);
-      due.bumpAndSave().catch(console.error);
+      await due.bumpAndSave().catch(console.error);
     }
     this.schedule();
   }
@@ -48,12 +48,14 @@ export class TimerSheduler {
     }
 
     let next = await Timer.getNextOccurence();
+    console.log(next);
     if (next) {
       let now = moment().valueOf();
       let target = moment(next.next).valueOf();
       console.log(moment(target).toLocaleString());
       console.log(`delta ${target - now}`);
-      this.timeout = setTimeout(this.onSchedule.bind(this), target - now);
+      if (target - now <= 0) this.onSchedule();
+      else this.timeout = setTimeout(this.onSchedule.bind(this), target - now);
     }
   }
 }
