@@ -7,6 +7,7 @@ import {
 } from "../config/constants";
 
 import { Push } from "../entities/Push";
+import { Timer } from "../entities/Timer";
 
 async function start() {
   // let conn = await createConnection({
@@ -20,11 +21,27 @@ async function start() {
     username: POSTGRES_PASSWORD,
     password: POSTGRES_USER,
     host: POSTGRES_HOST,
-    entities: [Push],
+    entities: [Push, Timer],
     synchronize: true,
   });
   console.log("database is ready");
   return conn;
 }
 
-export { start };
+async function startTest(testname: string) {
+  let conn = await createConnection({
+    type: "sqljs",
+    entities: [Push, Timer],
+    synchronize: true,
+    dropSchema: true,
+  });
+  return conn;
+  // return createConnection({
+  //   type: "better-sqlite3",
+  //   database: "db.test.sqlite",
+  //   entities: [Push, Timer],
+  //   synchronize: true,
+  // });
+}
+
+export { start, startTest };

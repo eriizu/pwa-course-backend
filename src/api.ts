@@ -4,7 +4,7 @@ import * as routes from "./routes";
 
 function start() {
   const app = express();
-  app.use(express.json());
+  setupMiddleware(app);
 
   app.use("/timers", routes.timer);
   app.use("/pushes", routes.push);
@@ -14,4 +14,8 @@ function start() {
   });
 }
 
-export { start };
+function setupMiddleware(app: express.Application) {
+  app.use(express.json());
+}
+
+export { start, setupMiddleware };

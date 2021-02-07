@@ -9,6 +9,7 @@ services:
       - "traefik.http.routers.pwaback.rule=Host(`pwa-back.eriizu.fr`)"
       - "traefik.http.routers.pwaback.entrypoints=websecure"
       - "traefik.http.routers.pwaback.tls.certresolver=le"
+    env_file: conf.env
     environment:
       PORT: 80
       BACK_POSTGRES_HOST: "db"
