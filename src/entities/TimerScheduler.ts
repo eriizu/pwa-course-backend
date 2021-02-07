@@ -13,8 +13,8 @@ export class TimerSheduler {
   static enable() {
     if (!this.scheduler) {
       this.scheduler = new TimerSheduler();
-      this.scheduler.schedule().catch(console.error);
     }
+    this.scheduler.schedule().catch(console.error);
     return this.scheduler;
   }
 
@@ -36,7 +36,7 @@ export class TimerSheduler {
           data: { url: "public.eiss.fr" },
         },
       };
-      Push.notifyAll().catch(console.warn);
+      Push.notifyAll(pl).catch(console.warn);
       await due.bumpAndSave().catch(console.error);
     }
     this.schedule();

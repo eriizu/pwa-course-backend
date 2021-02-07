@@ -60,7 +60,7 @@ export class Push extends BaseEntity {
 
     for (let pushEntry of registrations) {
       try {
-        await pushEntry.notify();
+        await pushEntry.notify(payload);
       } catch (err) {
         console.warn(err);
         pushEntry.remove().catch(console.warn);
