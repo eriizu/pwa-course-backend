@@ -10,6 +10,7 @@ import {
 class TokenRequest {
   constructor(req: Request) {
     this.client_id = CLIENT_ID;
+    if (!CLIENT_SECRET) throw Error("No client secret in env");
     this.client_secret = CLIENT_SECRET;
     this.redirect_uri = REDIRECT;
 

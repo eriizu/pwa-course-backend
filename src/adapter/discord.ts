@@ -3,11 +3,11 @@ import bent from "bent";
 import formurlencoded from "form-urlencoded";
 
 export const CLIENT_ID = "809357769232351262";
-assert(
-  process.env.CLIENT_SECRET,
-  'Client secret needs to be added to the process\' environment as "CLIENT_SECRET"'
-);
-export const CLIENT_SECRET = process.env.CLIENT_SECRET as string;
+// assert(
+//   process.env.CLIENT_SECRET,
+//   'Client secret needs to be added to the process\' environment as "CLIENT_SECRET"'
+// );
+export const CLIENT_SECRET = process.env.CLIENT_SECRET;
 export const REDIRECT = "https://pwa.eriizu.fr/login";
 
 export interface ITokenRequest {
