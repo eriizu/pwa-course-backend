@@ -37,7 +37,7 @@ class TokenRequest {
 
 export const get: RequestHandler = async (req, res) => {
   let form = new TokenRequest(req);
-
+  console.log(form);
   if (form.grant_type && (form.code || form.refresh_token))
     try {
       let adapter = new DiscordAdapter();
