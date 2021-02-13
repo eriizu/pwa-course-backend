@@ -8,6 +8,7 @@ function start() {
 
   app.use("/timers", routes.timer);
   app.use("/pushes", routes.push);
+  app.use("/discord", routes.discord);
 
   return app.listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}`);
