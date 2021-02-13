@@ -8,7 +8,7 @@ assert(
   'Client secret needs to be added to the process\' environment as "CLIENT_SECRET"'
 );
 export const CLIENT_SECRET = process.env.CLIENT_SECRET as string;
-export const REDIRECT = "https://capuchon.eriizu.fr/login";
+export const REDIRECT = "https://pwa.eriizu.fr/login";
 
 export interface ITokenRequest {
   client_id: string;
